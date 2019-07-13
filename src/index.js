@@ -1,37 +1,32 @@
-const ball = require("./ball");
-const paddle = require("./paddle");
 const step = require("./step");
 const render = require("./render");
+const input = require("./input");
+const round = require("./round");
+const ai = require("./ai");
+const clone = require("lodash.clonedeep");
 
-const defaultState = {
-	ball: ball(50, 50),
-	paddle: [
-		paddle(0, 50),
-		paddle(100, 50)
-	]
-};
+let state = round.create();
+let last = clone(state);
 
-let state = defaultState;
-
-state.paddle[0].dir.y = 1;
-
-let states = [];
+let aiInput = 0;
 
 function drawEvent() {
 
-	state = step(state, 1/60);
-	states.push(state);
+	state.inputs = input.collect(state);
 
+	state.inputs[0] = ai.step(state, last.inputs[0], state.paddle[0].pos, 1/60)
+	state.inputs[1] = ai.step(state, last.inputs[1], state.paddle[1].pos, 1/60)
+
+	state = step(state, state.inputs, 1/60);
 	let canvas = document.getElementById('canvas');
 	let context = canvas.getContext('2d');
 
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
-	states.forEach(s =>	render(s, context, canvas.width, canvas.height));
+	render(state, context, canvas.width, canvas.height);
 
 	window.requestAnimationFrame(drawEvent);
-
-	states = states.slice(-100);
+	last = clone(state);
 };
 
 window.requestAnimationFrame(drawEvent);

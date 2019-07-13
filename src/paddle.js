@@ -7,5 +7,6 @@ module.exports = (x, y) => {
 		pos: vec(x, y),
 		size: vec(4, 8),
 		dir: vec(0, 0),
+		speed: 8, 		
 	};
 };

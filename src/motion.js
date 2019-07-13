@@ -10,6 +10,17 @@ const ball = (state, delta) => {
 	return next;
 };
 
+const paddle = (state, yInput, delta) => {
+	let next = clone(state);
+
+	next.dir.y = yInput;
+	next.speed = (Math.abs(yInput) * 100) * delta;
+	next.pos.y += next.dir.y * next.speed;
+
+	return next;
+};
+
 module.exports = {
-	ball
+	ball,
+	paddle
 };

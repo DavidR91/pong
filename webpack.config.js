@@ -12,5 +12,9 @@ module.exports = {
         new webpack.ProvidePlugin({
             _: 'lodash'
         })
-    ]
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+  }
 };
