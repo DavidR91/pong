@@ -1,21 +1,22 @@
 const motion = require("./motion");
 const collision = require("./collision");
 const clone = require("lodash.clonedeep");
+const ball = require("./ball");
+const ai = require("./ai");
+const win = require("./win");
 
 // Given a state, proceed forward and return its successor
-module.exports = (state, input, delta) => {
+module.exports = (previous, current, inputs, delta) => {
 
-	let next = clone(state);
+	let next = clone(current);
 
-	next.ball = motion.ball(state.ball, delta);
+	next.ai = current.ai.map((v, index) => ai.step(current.ball, previous.ai[index], current.paddle[index].pos, delta));
 
-	state.paddle.forEach((p, index) => {
-		next.paddle[index] = motion.paddle(p, input[index], delta);
-	});
+	next.paddle = current.paddle.map((v, index) => motion.paddle(v, v.isAi ? next.ai[index] : inputs[index], delta));
 
-	next.collisions = collision.step(state);
+	next.collisions = collision.step(current);
 
-	next.ball = collision.ball(next.ball, next.collisions.detected);
+	next.ball = ball.collision(motion.ball(current.ball, delta), next.collisions.detected);
 
-	return next;
+	return win.step(next, next.collisions.detected);
 };

@@ -1,7 +1,7 @@
 const borderType = Symbol("border");
 
 // A border wall around the level preventing the ball from escaping
-module.exports = (x, y, width, height) => {
+module.exports = (x, y, width, height, goalFor = -1) => {
 	return {
 		type: borderType,
 		x: x, 
@@ -12,6 +12,10 @@ module.exports = (x, y, width, height) => {
 			x: 0, 
 			y: 0
 		},
-		isDynamic: false
+		isDynamic: false,
+
+		// Whether hitting this border is a goal
+		isGoal: (goalFor >= 0), 
+		goalPlayer: goalFor
 	}
 };

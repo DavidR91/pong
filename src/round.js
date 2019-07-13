@@ -15,13 +15,22 @@ const randomDirection = () =>  {
 // Create a new round (starting state)
 const create = () => {
 	return {
-		ball: ball(50, 50, randomDirection(), randomDirection()),
+		ball: ball.create(50, 50, randomDirection(), randomDirection()),
 		paddle: [
-			paddle(0, 50),
-			paddle(100, 50)
+			paddle(0, 50, false),
+			paddle(100, 50, true)
 		],
-		collisions: [],
-		inputs: [0, 0]
+
+		collisions: [], 
+
+		// Normalized Y inputs for the AI
+		ai: [ 
+			0,
+			0
+		],
+
+		// Whether this state contains a goal being scored 
+		isGoalState: false
 	};
 };
 

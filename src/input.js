@@ -1,3 +1,5 @@
+const clone = require("lodash.clonedeep");
+
 const empty = () => {
 
 	// Normalized form of the left and right vertical direction change
@@ -7,24 +9,21 @@ const empty = () => {
 	]
 };
 
-const collect = (state) => {
+const step = (paddles) => {
 
-	let next = empty();
-
-	// For every paddle 
-	state.paddle.forEach((p, index) => {
+	return paddles.map((p, index) => {
 
 		let controller = navigator.getGamepads()[index];
 
 		if (controller) {
-			next[index] = controller.axes[1];
+		 	return controller.axes[1];
+		} else {
+			return 0;
 		}
 	});
-
-	return next;
 };
 
 module.exports = {
 	empty, 
-	collect
+	step
 };

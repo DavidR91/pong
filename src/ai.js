@@ -1,19 +1,19 @@
-const clamp = (v, min, max) => {
-	return Math.min(Math.max(v, min), max)
-};
+const clamp = require("./math").clamp;
 
-// Output the normalized Y input to the paddle for the AI
-const step = (state, lastInput, paddlePos, delta) => {
+// Output the normalized Y input to control the paddle for the AI
+//
+// This AI is trash 
+const step = (ballState, lastInput, paddlePos, delta) => {
 
 	let next = lastInput;
 
-	const yDistance = Math.abs(state.ball.pos.y - paddlePos.y);
-	const xDistance = Math.abs(state.ball.pos.x - paddlePos.x);
+	const yDistance = Math.abs(ballState.pos.y - paddlePos.y);
+	const xDistance = Math.abs(ballState.pos.x - paddlePos.x);
 
-	if (state.ball.pos.y > paddlePos.y && yDistance > state.ball.size.y /2 && xDistance < 50) {
+	if (ballState.pos.y > paddlePos.y && yDistance > ballState.size.y / 4 && xDistance < 50) {
 		next += 5 * delta;
 	} else {
-		if (state.ball.pos.y < paddlePos.y && yDistance > state.ball.size.y /2 && xDistance < 50) {
+		if (ballState.pos.y < paddlePos.y && yDistance > ballState.size.y / 4 && xDistance < 50) {
 			next -= 5 * delta;
 		} else {
 			
@@ -25,7 +25,6 @@ const step = (state, lastInput, paddlePos, delta) => {
 					next += delta;
 				}
 			}
-
 		}
 	}
 

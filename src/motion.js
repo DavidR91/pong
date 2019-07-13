@@ -1,4 +1,5 @@
 const clone = require("lodash.clonedeep");
+const clamp = require("./math").clamp;
 
 const ball = (state, delta) => {
 
@@ -16,6 +17,7 @@ const paddle = (state, yInput, delta) => {
 	next.dir.y = yInput;
 	next.speed = (Math.abs(yInput) * 100) * delta;
 	next.pos.y += next.dir.y * next.speed;
+	next.pos.y = clamp(next.pos.y, 0, 100);
 
 	return next;
 };

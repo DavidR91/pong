@@ -113,8 +113,8 @@ const forState = (state) => {
 		border(-25, 110, 154, 10),
 
 		// Verticals
-		border(-25, -10, 10, 130),
-		border(119, -10, 10, 130),
+		border(-25, -10, 10, 130, 0),
+		border(119, -10, 10, 130, 1),
 
 		dynamic(state.paddle[0]),
 		dynamic(state.paddle[1]),

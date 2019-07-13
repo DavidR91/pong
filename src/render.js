@@ -43,6 +43,13 @@ const renderCollision = (state, context) => {
 const render = (state, context, viewWidth, viewHeight) => {
 
 	context.fillStyle = 'black';
+	context.fillRect(0, 0, viewWidth, viewHeight)
+
+	context.fillStyle = 'white';
+
+	state.collisions.hulls.forEach(c => {
+		context.fillRect(renderX(c.x), renderY(c.y), renderWidth(c.w), renderHeight(c.h))
+	});
 
 	context.fillRect(renderX(state.ball.pos.x), renderY(state.ball.pos.y), renderWidth(state.ball.size.x), renderHeight(state.ball.size.y));
 
@@ -50,7 +57,7 @@ const render = (state, context, viewWidth, viewHeight) => {
 		context.fillRect(renderX(p.pos.x), renderY(p.pos.y), renderWidth(p.size.x), renderHeight(p.size.y));
 	});
 
-	renderCollision(state, context);
+//	renderCollision(state, context);
 };
 
 
