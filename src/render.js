@@ -1,8 +1,8 @@
 const xScale = 2;
-const xOffset = 50;
+const xOffset = 30;
 
 const yScale = 2;
-const yOffset = 50;
+const yOffset = 15;
 
 const renderX = (x) => {
 	return (x + xOffset) * xScale;
