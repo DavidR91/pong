@@ -1,15 +1,15 @@
-const step = require("./step");
-const render = require("./render");
-const input = require("./input");
-const round = require("./round");
+import step from "./step";
+import render from "./render";
+import input from "./input";
+import { create as createRound } from "./round";
 const clone = require("lodash.clonedeep");
 
-let state = round.create();
+let state = createRound();
 let previous = clone(state);
 
 function drawEvent() {
 
-	let next = step(previous, state, input.step(state.paddle), 1/60);
+	let next = step(previous, state, input(state.paddle), 1/60);
 
 	let canvas = document.getElementById('canvas');
 	let context = canvas.getContext('2d');
@@ -23,7 +23,7 @@ function drawEvent() {
 
 	// Reset on goal
 	if (state.isGoalState) {
-		state =  round.create();
+		state =  createRound();
 	}
 
 	window.requestAnimationFrame(drawEvent);

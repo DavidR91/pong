@@ -1,7 +1,7 @@
 const clone = require("lodash.clonedeep");
-const clamp = require("./math").clamp;
+import { clamp } from "./math";
 
-const ball = (state, delta) => {
+export const ballMotion = (state, delta) => {
 
 	let next = clone(state);
 
@@ -11,7 +11,7 @@ const ball = (state, delta) => {
 	return next;
 };
 
-const paddle = (state, yInput, delta) => {
+export const paddleMotion = (state, yInput, delta) => {
 	let next = clone(state);
 
 	next.dir.y = yInput;
@@ -20,9 +20,4 @@ const paddle = (state, yInput, delta) => {
 	next.pos.y = clamp(next.pos.y, 0, 100);
 
 	return next;
-};
-
-module.exports = {
-	ball,
-	paddle
 };

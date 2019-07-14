@@ -1,7 +1,7 @@
 const borderType = Symbol("border");
 
 // A border wall around the level preventing the ball from escaping
-module.exports = (x, y, width, height, goalFor = -1) => {
+export const createBorder = (x, y, width, height, goalFor = -1) => {
 	return {
 		type: borderType,
 		x: x, 

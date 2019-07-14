@@ -40,7 +40,7 @@ const renderCollision = (state, context) => {
 	});
 }
 
-const render = (state, context, viewWidth, viewHeight) => {
+export default (state, context, viewWidth, viewHeight) => {
 
 	context.fillStyle = 'black';
 	context.fillRect(0, 0, viewWidth, viewHeight)
@@ -59,6 +59,3 @@ const render = (state, context, viewWidth, viewHeight) => {
 
 //	renderCollision(state, context);
 };
-
-
-module.exports = render;

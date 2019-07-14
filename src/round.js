@@ -1,5 +1,5 @@
-const ball = require("./ball");
-const paddle = require("./paddle");
+import { createBall } from "./ball";
+import { createPaddle } from "./paddle";
 
 const randomDirection = () =>  {
 
@@ -13,12 +13,12 @@ const randomDirection = () =>  {
 };
 
 // Create a new round (starting state)
-const create = () => {
+export const create = () => {
 	return {
-		ball: ball.create(50, 50, randomDirection(), randomDirection()),
+		ball: createBall(50, 50, randomDirection(), randomDirection()),
 		paddle: [
-			paddle(0, 50, false),
-			paddle(100, 50, true)
+			createPaddle(0, 50, true),
+			createPaddle(100, 50, true)
 		],
 
 		collisions: [], 
@@ -32,8 +32,4 @@ const create = () => {
 		// Whether this state contains a goal being scored 
 		isGoalState: false
 	};
-};
-
-module.exports = {
-	create
 };

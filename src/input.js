@@ -9,7 +9,7 @@ const empty = () => {
 	]
 };
 
-const step = (paddles) => {
+export default (paddles) => {
 
 	return paddles.map((p, index) => {
 
@@ -21,9 +21,4 @@ const step = (paddles) => {
 			return 0;
 		}
 	});
-};
-
-module.exports = {
-	empty, 
-	step
 };

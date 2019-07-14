@@ -1,13 +1,13 @@
 const clone = require("lodash.clonedeep");
-const ball = require("./ball");
+import { ballType } from "./ball";
 
 // Detect a win state
-const step = (state, collisions) => {
+export default (state, collisions) => {
 
 	let next = clone(state);
 
 	// Get all ball collisions
- 	collisions.filter(c => c.a.type == ball.type).forEach(c => {
+ 	collisions.filter(c => c.a.type == ballType).forEach(c => {
 
  		// If the ball is colliding with a goal
  		if (c.b.isGoal) {
@@ -16,8 +16,4 @@ const step = (state, collisions) => {
  	});
 
  	return next;
-};
-
-module.exports = {
-	step
 };

@@ -1,4 +1,4 @@
-const border = require("./border");
+import { createBorder } from "./border";
 
 // Create a collidable for an object with size and position 
 const dynamic = (obj) => {
@@ -14,7 +14,7 @@ const dynamic = (obj) => {
 };
 
 // Is there overlap between two collidables
-const isOverlap = (a, b) => {
+export const isOverlap = (a, b) => {
 
 	// Adapted from SDL_HasIntersection
 
@@ -57,7 +57,7 @@ const isOverlap = (a, b) => {
 	return true;
 }
 
-const intersection = (a, b) => {
+export const intersection = (a, b) => {
 
 	let result = {
 		x: 0, 
@@ -67,10 +67,10 @@ const intersection = (a, b) => {
 	};
 
 	// Horizontal
-	aMinimum = a.x;
-	aMaximum = aMinimum + a.w;
-	bMinimum = b.x;
-	bMaximum = bMinimum + b.w;
+	let aMinimum = a.x;
+	let aMaximum = aMinimum + a.w;
+	let bMinimum = b.x;
+	let bMaximum = bMinimum + b.w;
 
 	if (bMinimum > aMinimum) {
 		aMinimum = bMinimum;
@@ -105,25 +105,19 @@ const intersection = (a, b) => {
 }
 
 // Create a set of collidables for the entire game state
-const forState = (state) => {
+export const createCollidables = (state) => {
 	return [
 
 		// Horizontals
-		border(-25, -10, 154, 10),
-		border(-25, 110, 154, 10),
+		createBorder(-25, -10, 154, 10),
+		createBorder(-25, 110, 154, 10),
 
 		// Verticals
-		border(-25, -10, 10, 130, 0),
-		border(119, -10, 10, 130, 1),
+		createBorder(-25, -10, 10, 130, 0),
+		createBorder(119, -10, 10, 130, 1),
 
 		dynamic(state.paddle[0]),
 		dynamic(state.paddle[1]),
 		dynamic(state.ball),
 	]
-};
-
-module.exports = {
-	isOverlap,
-	forState,
-	intersection
 };

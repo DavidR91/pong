@@ -1,7 +1,7 @@
 const paddleType = Symbol("paddle");
-const vec = require("./vec");
+import vec from "./vec";
 
-module.exports = (x, y, ai = false) => {
+export const createPaddle = (x, y, ai = false) => {
 	return {
 		type: paddleType,
 		pos: vec(x, y),

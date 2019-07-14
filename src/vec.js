@@ -1,4 +1,4 @@
-module.exports = (x = 0, y = 0) => {
+export default (x = 0, y = 0) => {
 	return {
 		x: x, 
 		y: y

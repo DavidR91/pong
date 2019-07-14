@@ -1,9 +1,9 @@
-const clamp = require("./math").clamp;
+import { clamp } from "./math";
 
 // Output the normalized Y input to control the paddle for the AI
 //
 // This AI is trash 
-const step = (ballState, lastInput, paddlePos, delta) => {
+export default (ballState, lastInput, paddlePos, delta) => {
 
 	let next = lastInput;
 
@@ -29,8 +29,4 @@ const step = (ballState, lastInput, paddlePos, delta) => {
 	}
 
 	return clamp(next, -1, 1);
-};
-
-module.exports = {
-	step
 };

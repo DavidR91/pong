@@ -1,8 +1,8 @@
-const ballType = Symbol("ball");
-const vec = require("./vec");
+export const ballType = Symbol("ball");
+import vec from "./vec";
 const clone = require("lodash.clonedeep");
 
-const create = (x, y, xDirection = 1, yDirection = 0) => {
+export const createBall = (x, y, xDirection = 1, yDirection = 0) => {
 	return {
 		type: ballType,
 		pos: vec(x, y),
@@ -21,7 +21,7 @@ const create = (x, y, xDirection = 1, yDirection = 0) => {
 
 // Produce a new state for the ball given its current state and the set of all 
 // known collisions
-const collision = (ballState, collisions) => {
+export const ballCollision = (ballState, collisions) => {
  	let next = clone(ballState);
 
  	// Assume no collisions initially
@@ -85,10 +85,4 @@ const collision = (ballState, collisions) => {
  	}
 
  	return next;
-};
-
-module.exports = {
-	create, 
-	collision,
-	type: ballType
 };

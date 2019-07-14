@@ -1,10 +1,10 @@
-const coll = require("./collidables");
+import { createCollidables, intersection, isOverlap } from "./collidables";
 const clone = require("lodash.clonedeep");
 
 // Produce the set of all collisions
-const step = (state) => {
+export default (state) => {
 
-	let hulls = coll.forState(state);
+	let hulls = createCollidables(state);
 
 	let results = {
 		hulls: hulls,
@@ -25,11 +25,11 @@ const step = (state) => {
 				return;
 			}
 
-			if (coll.isOverlap(h, other)) {
+			if (isOverlap(h, other)) {
 				results.detected.push({
 					a: h, 
 					b: other,
-					intersection: coll.intersection(h, other)
+					intersection: intersection(h, other)
 				});
 			}
 
@@ -38,8 +38,4 @@ const step = (state) => {
 	});
 
 	return results;
-};
-
-module.exports = {
-	step
 };
