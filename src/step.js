@@ -1,22 +1,25 @@
-const clone = require("lodash.clonedeep");
 import collision from "./collision";
 import { ballMotion, paddleMotion } from "./motion";
 import { ballCollision } from "./ball";
-import ai from "./ai";
-import win from "./win";
+import aiStep from "./ai";
+import { ballType } from "./ball";
 
 // Given a state, proceed forward and return its successor
 export default (previous, current, inputs, delta) => {
 
-	let next = clone(current);
+	let ai = current.ai.map((v, index) => aiStep(current.ball, previous.ai[index], current.paddle[index].pos, delta));
 
-	next.ai = current.ai.map((v, index) => ai(current.ball, previous.ai[index], current.paddle[index].pos, delta));
+	let paddle = current.paddle.map((v, index) => paddleMotion(v, v.isAi ? ai[index] : inputs[index], delta));
 
-	next.paddle = current.paddle.map((v, index) => paddleMotion(v, v.isAi ? next.ai[index] : inputs[index], delta));
+	let collisions = collision(current);
 
-	next.collisions = collision(current);
+	let ball = ballCollision(ballMotion(current.ball, delta), collisions.detected);
 
-	next.ball = ballCollision(ballMotion(current.ball, delta), next.collisions.detected);
-
-	return win(next, next.collisions.detected);
+	return {
+		ai, 
+		paddle,
+		collisions, 
+		ball,
+		isGoalState: collisions.detected.some(c => c.a.type == ballType && c.b.isGoal)
+	};
 };

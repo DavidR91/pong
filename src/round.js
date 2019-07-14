@@ -9,7 +9,7 @@ const randomDirection = () =>  {
 		return 0;
 	}
 
-	return range / Math.abs(range);
+	return range;
 };
 
 // Create a new round (starting state)

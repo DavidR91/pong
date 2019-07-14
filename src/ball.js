@@ -37,12 +37,12 @@ export const ballCollision = (ballState, collisions) => {
 
  			// Headed down, obstacle below
  			if (ballState.dir.y > 0 && c.b.y > ballState.pos.y) {
-	 			next.dir.y = -1;
+	 			next.dir.y = -Math.abs(next.dir.y);
 	 		}
 
 	 		// Headed up, obstacle above
 	 		if (ballState.dir.y < 0 && c.b.y < ballState.pos.y) {
-	 			next.dir.y = 1;
+	 			next.dir.y = Math.abs(next.dir.y);
 	 		}
 
 	 		// Not moving vertically
@@ -58,7 +58,7 @@ export const ballCollision = (ballState, collisions) => {
 
  			// Vertical
  			if (ballState.dir.x >= 0 && c.b.x > ballState.pos.x) {
-	 			next.dir.x = -1;
+	 			next.dir.x = -Math.abs(next.dir.x);
 
 	 			// If the target is moving, adopt its motion
 	 			if (c.b.dir.y != 0) {
@@ -67,7 +67,7 @@ export const ballCollision = (ballState, collisions) => {
 	 		}
 
 	 		if (ballState.dir.x < 0 && c.b.x < ballState.pos.x) {
-	 			next.dir.x = 1;
+	 			next.dir.x = Math.abs(next.dir.x);
 
 	 			if (c.b.dir.y != 0) {
 	 				next.dir.y = c.b.dir.y > 0 ? 1 : -1;
